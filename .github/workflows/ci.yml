@@ -21,6 +21,8 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: secret
           POSTGRES_DB: simple_bank
+        ports:
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -36,7 +38,13 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - name: Run nigrations
+      - name: install golang-migrate
+        run : |
+          $ curl -L https://github.com/golang-migrate/migrate/releases/download/v4.19.1/migrate.darwin-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin
+          which migrate
+
+      - name: Run migrations
         run: make migrateup
 
       - name: Test
