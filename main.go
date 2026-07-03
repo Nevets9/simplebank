@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/Nevets9/simplebank/api"
-	"github.com/Nevets9/simplebank/util"
 	db "github.com/Nevets9/simplebank/db/sqlc"
+	"github.com/Nevets9/simplebank/util"
 	_ "github.com/lib/pq"
 )
 
@@ -21,7 +21,10 @@ func main() {
 	}
 
 	store := db.NewStore(conn)
-	server := api.NewServer(store)
+	server, err := api.NewServer(config, store)
+	if err != nil {
+		log.Fatal("cannot create server: ", err)
+	}
 
 	err = server.Start(config.ServerAddress)
 	if err != nil {
