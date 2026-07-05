@@ -46,6 +46,16 @@ jobs:
 
       - name: Run migrations
         run: make migrateup
+        
+      - name: Create app.env file
+        run: |
+          touch app.env
+          echo "DB_DRIVER=postgres" 
+          echo "DB_SOURCE=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" 
+          echo "SERVER_ADDRESS=0.0.0.0:8080" 
+          echo "TOKEN_SECRET=12345678901234567890123456789012" 
+          echo "ACCESS_TOKEN_DURATION=15m" 
+
 
       - name: Test
         run: make test
