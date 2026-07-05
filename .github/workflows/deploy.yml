@@ -24,6 +24,15 @@ jobs:
         id: login-ECR
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Generate app.env file
+        run: |
+          touch app.env
+          echo "DB_DRIVER=postgres" >> app.env
+          echo "DB_SOURCE=postgresql://dummy_user:dummy_pass@localhost:5432/simple_bank" >> app.env
+          echo "SERVER_ADDRESS=0.0.0.0:8080" >> app.env
+          echo "TOKEN_SECRET=12345678901234567890123456789012" >> app.env
+          echo "ACCESS_TOKEN_DURATION=15m" >> app.env
+
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }} 
