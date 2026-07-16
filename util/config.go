@@ -11,6 +11,7 @@ type Config struct {
 	DBSource      string `mapstructure:"DB_SOURCE"`
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
 	GRPCServerAddress string `mapstructure:"GRPC_SERVER_ADDRESS"`
+	MigrationURL         string        `mapstructure:"MIGRATION_URL"`
 	TokenSecret		string `mapstructure:"TOKEN_SECRET"`
 	AccessTokenDuration		time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 	RefreshTokenDuration		time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
